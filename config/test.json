@@ -1,0 +1,4 @@
+{
+  "mode": "Test - configuration",
+  "db": "mongodb://localhost:27017/test"
+}
