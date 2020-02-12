@@ -1,4 +1,4 @@
 {
-  "atlas_uri": "atlas_uri_lesheures",
-  "jwt_secret": "jwt_secret"
+  "atlas_uri": "MONGODB_URI",
+  "jwt_secret": "JWT_SECRET"
 }
