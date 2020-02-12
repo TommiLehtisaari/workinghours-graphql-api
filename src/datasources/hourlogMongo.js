@@ -1,6 +1,6 @@
 const { DataSource } = require('apollo-datasource')
 const { UserInputError, AuthenticationError } = require('apollo-server')
-const { Task, Hourlog, User, Project } = require('../models')
+const { Task, Hourlog, User } = require('../models')
 
 class HourlogMongo extends DataSource {
   constructor() {
