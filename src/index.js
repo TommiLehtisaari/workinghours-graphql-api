@@ -1,7 +1,6 @@
 const { ApolloServer } = require('apollo-server-express')
 const express = require('express')
 const path = require('path')
-const config = require('config')
 
 const jwt = require('jsonwebtoken')
 
@@ -29,7 +28,10 @@ const dataSources = () => ({
 const context = async ({ req }) => {
   const auth = req ? req.headers['x-auth-token'] : null
   if (auth) {
-    const decodedToken = jwt.verify(auth, config.get('jwt_secret'))
+    const decodedToken = jwt.verify(
+      auth,
+      process.env.JWT_SECRER || 'bad_secret'
+    )
     const currentUser = await userDatabase.getUserById(decodedToken.id)
     return { currentUser }
   }
@@ -61,7 +63,7 @@ if (environment !== 'test') {
       console.log(
         `🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`
       )
-      console.log(`mode: ${config.get('mode')}`)
+      console.log(`mode: ${process.env.NODE_ENV}`)
     }
   })
 }

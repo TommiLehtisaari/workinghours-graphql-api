@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-const config = require('config')
 const logger = require('../utils/logger')
 
 const UserMongo = require('./userMongo')
@@ -11,13 +10,14 @@ mongoose.set('useFindAndModify', false)
 const env = process.env.NODE_ENV
 
 const databaseDefiner = env => {
+  const baseURL = process.env.MONGODB_URI || 'mongodb://localhost:27017'
   switch (env) {
     case 'test':
-      return config.get('db').toString()
+      return baseURL + '/workinghours_testdb'
     case 'development':
-      return config.get('db').toString()
+      return baseURL + '/workinghours_developmentdb'
     default:
-      return config.get('atlas_uri').toString()
+      return baseURL + '/workinghours_productiondb'
   }
 }
 
@@ -26,7 +26,11 @@ const MONGODB_URI = databaseDefiner(env)
 logger.log(`connecting to ${MONGODB_URI}`)
 
 mongoose
-  .connect(MONGODB_URI, { useNewUrlParser: true, useCreateIndex: true })
+  .connect(MONGODB_URI, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true
+  })
   .then(() => {
     logger.log('connected to MongoDB')
   })
