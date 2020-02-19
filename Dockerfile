@@ -4,7 +4,7 @@ EXPOSE 4000
 
 WORKDIR /usr/app/
 
-RUN apk add --no-cache --virtual .gyp python make g++ tini
+RUN apk add --no-cache --virtual .gyp python make g++
 
 COPY package*.json ./
 
@@ -15,5 +15,4 @@ COPY . .
 
 ENV MONGODB_URI=mongodb://localhost:27017 JWT_SECRET=DefaultToken
 
-ENTRYPOINT [ "/sbin/tini", "--" ]
 CMD ["node", "./src/index.js"]
