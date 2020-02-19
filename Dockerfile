@@ -8,7 +8,7 @@ RUN apk add --no-cache --virtual .gyp python make g++
 
 COPY package*.json ./
 
-RUN npm install && npm cache clean --force
+RUN npm install --only=production && npm cache clean --force
 
 USER node
 COPY . .
