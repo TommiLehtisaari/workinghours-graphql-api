@@ -71,3 +71,21 @@ As default development and test environment expects that you have mongodb runnin
 You can start development server by:
 
 `yarn watch`
+
+# Admin privileges
+
+This API is created so that other admins can promote users to admins as well. All the admins are on same rank so that once an admin can not be depromoted. First admin can be done with naming the first user as `username=superuser`.
+
+```graphql
+mutation {
+	createUser(
+		username: "superuser"
+		name: "Adminstrator"
+		password: "<password>"
+	){
+		value
+	}
+}
+```
+
+Other options are manipulating directly the database.
