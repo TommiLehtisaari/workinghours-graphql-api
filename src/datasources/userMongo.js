@@ -1,6 +1,5 @@
 const { DataSource } = require('apollo-datasource')
 const { AuthenticationError, UserInputError } = require('apollo-server')
-const config = require('config')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const _ = require('lodash')
@@ -14,7 +13,7 @@ class UserMongo extends DataSource {
   createToken(user) {
     return jwt.sign(
       _.pick(user, ['username', 'name', 'admin', 'id']),
-      config.get('jwt_secret')
+      process.env.JWT_SECRET
     )
   }
 

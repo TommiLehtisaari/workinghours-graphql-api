@@ -1,7 +1,6 @@
 const { createTestClient } = require('apollo-server-testing')
 const { gql } = require('apollo-server')
 const mongoose = require('mongoose')
-const config = require('config')
 const jwt = require('jsonwebtoken')
 const { User } = require('../src/models')
 const { constructTestServer } = require('./utils/utils')
@@ -56,7 +55,7 @@ describe('Mutations', () => {
       variables: testUsers[0]
     })
     const token = res.data.createUser.value
-    const decodedToken = jwt.verify(token, config.get('jwt_secret'))
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET)
     expect(decodedToken.name).toEqual(testUsers[0].name)
     expect(decodedToken.username).toEqual(testUsers[0].username)
   })
@@ -79,7 +78,7 @@ describe('Mutations', () => {
       variables: testUsers[0]
     })
     const token = res.data.login.value
-    const decodedToken = jwt.verify(token, config.get('jwt_secret'))
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET)
     expect(decodedToken.name).toEqual(testUsers[0].name)
     expect(decodedToken.admin).toEqual(false)
     expect(decodedToken.username).toEqual(testUsers[0].username)
@@ -93,7 +92,7 @@ describe('Mutations', () => {
       variables: { username: 'superuser', password: 'keLo6g12_lM4c' }
     })
     const token = res.data.createUser.value
-    const decodedToken = jwt.verify(token, config.get('jwt_secret'))
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET)
     expect(decodedToken.username).toEqual('superuser')
     expect(decodedToken.admin).toEqual(true)
   })
@@ -113,7 +112,7 @@ describe('Mutations', () => {
       }
     })
     const token = res.data.createUser.value
-    const decodedToken = jwt.verify(token, config.get('jwt_secret'))
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET)
 
     expect(decodedToken.admin).toEqual(false)
 

@@ -1,4 +1,0 @@
-{
-  "atlas_uri": "MONGODB_URI",
-  "jwt_secret": "JWT_SECRET"
-}

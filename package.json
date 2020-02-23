@@ -3,16 +3,16 @@
   "version": "1.0.0",
   "main": "./src/index.js",
   "engines": {
-    "node": "12.x"
+    "node": "13.x"
   },
   "license": "MIT",
   "scripts": {
     "start": "node ./src/index.js",
+    "start:dev": "NODE_ENV=development webpack",
+    "run:dev": "NODE_ENV=development nodemon build/index.js",
     "watch": "NODE_ENV=development nodemon ./src/index.js",
     "test": "NODE_ENV=test jest --verbose --runInBand",
-    "build:ui": "rm -rf build && cd ../frontend-react/ && yarn build && cp -r build ../backend-graphql",
-    "deploy:build": "yarn build:ui && yarn deploy",
-    "debloy": "git add . && git commit -m uibuild && git push heroku master"
+    "build": "webpack"
   },
   "jest": {
     "testEnvironment": "node",
@@ -23,7 +23,6 @@
     "apollo-server": "^2.6.3",
     "apollo-server-express": "^2.9.3",
     "bcrypt": "^3.0.6",
-    "config": "^3.1.0",
     "express": "^4.17.1",
     "graphql": "^14.3.1",
     "graphql-tools": "^4.0.4",
@@ -40,6 +39,10 @@
     "eslint-plugin-prettier": "^3.1.0",
     "jest": "^24.8.0",
     "nodemon": "^1.19.1",
-    "prettier": "^1.18.2"
+    "prettier": "^1.18.2",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10",
+    "webpack-node-externals": "^1.7.2",
+    "webpack-shell-plugin": "^0.5.0"
   }
 }
